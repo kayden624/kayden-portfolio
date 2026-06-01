@@ -21,7 +21,9 @@ import {
 
 export default function Home() {
 
-const [showQR, setShowQR] = useState(null);
+const [showQR, setShowQR] = useState<
+  "whatsapp" | "line" | "wechat" | null
+>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
