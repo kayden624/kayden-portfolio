@@ -1,8 +1,65 @@
 "use client";
+import { useState } from "react";
+import Image from "next/image";
 
 import { motion } from "framer-motion";
+import {
+  FaReact,
+  FaDocker,
+  FaAws,
+  FaGitAlt,
+  FaJava,
+  FaPython,
+} from "react-icons/fa";
+
+import {
+  SiExpo,
+  SiNextdotjs,
+  SiMongodb,
+  SiSharp,
+} from "react-icons/si";
 
 export default function Home() {
+
+const [showQR, setShowQR] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+      }),
+    });
+
+    const data = await res.json();
+
+    setLoading(false);
+
+    if (data.success) {
+      setSuccess(true);
+
+      setName("");
+      setEmail("");
+      setMessage("");
+    }
+  };
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
 
@@ -157,36 +214,116 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Skills */}
-      <section
-        id="skills"
-        className="relative z-10 max-w-6xl mx-auto px-6 py-24"
-      >
-        <h2 className="text-4xl font-bold mb-12 text-blue-400">
-          Skills
-        </h2>
+     
+{/* Skills */}
+<section
+  id="skills"
+  className="relative z-10 max-w-6xl mx-auto px-6 py-24"
+>
+  <h2 className="text-4xl font-bold mb-12 text-blue-400">
+    Skills
+  </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            "React",
-            "Next.js",
-            "React Native",
-            "Node.js",
-            "MongoDB",
-            "Docker",
-            "AWS",
-            "C#",
-          ].map((skill) => (
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              key={skill}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center backdrop-blur-md hover:border-purple-400 transition"
-            >
-              <p className="text-lg font-semibold">{skill}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+    
+{[
+  {
+    name: "React",
+    description: "Building modern interactive web interfaces.",
+    icon: <FaReact size={42} />,
+  },
+  {
+    name: "React Native",
+    description: "Developing cross-platform mobile applications.",
+    icon: <FaReact size={42} />,
+  },
+  {
+    name: "Expo",
+    description: "Rapid mobile app development and deployment.",
+    icon: <SiExpo size={42} />,
+  },
+  {
+    name: "Next.js",
+    description: "Creating scalable full-stack web applications.",
+    icon: <SiNextdotjs size={42} />,
+  },
+  {
+    name: "MongoDB",
+    description: "Managing NoSQL databases for web systems.",
+    icon: <SiMongodb size={42} />,
+  },
+  {
+    name: "Docker",
+    description: "Containerizing applications and backend services.",
+    icon: <FaDocker size={42} />,
+  },
+  {
+    name: "AWS",
+    description: "Deploying cloud-based applications and APIs.",
+    icon: <FaAws size={42} />,
+  },
+  {
+    name: "Git",
+    description: "Version control and collaborative development.",
+    icon: <FaGitAlt size={42} />,
+  },
+  {
+    name: "C#",
+    description: "Object-oriented programming and game systems.",
+    icon: <SiSharp size={42} />,
+  },
+  {
+    name: "Java",
+    description: "Developing software applications and backend logic.",
+    icon: <FaJava size={42} />,
+  },
+  {
+    name: "Python",
+    description: "Building automation scripts and AI-related projects.",
+    icon: <FaPython size={42} />,
+  },
+].map((skill, index) => (
+  <motion.div
+    whileHover={{ y: -8 }}
+    key={index}
+    className="
+      bg-white/5
+      border
+      border-white/10
+      rounded-3xl
+      p-8
+      backdrop-blur-md
+      hover:border-cyan-400
+      transition
+      duration-300
+      flex
+      flex-col
+      items-center
+      justify-center
+      gap-5
+      text-center
+    "
+  >
+    <div className="text-cyan-400">
+      {skill.icon}
+    </div>
+
+    <h3 className="text-xl font-semibold">
+      {skill.name}
+    </h3>
+
+    <p className="text-sm text-gray-400 leading-6">
+      {skill.description}
+    </p>
+  </motion.div>
+))}
+
+
+  </div>
+</section>
+
+
 
       {/* Projects */}
       <section
@@ -361,61 +498,294 @@ export default function Home() {
 
         </div>
       </section>
+      
+{/* Contact */}
+<section
+  id="contact"
+  className="relative z-10 max-w-5xl mx-auto px-6 py-24"
+>
+  <h2 className="text-5xl font-bold text-cyan-400 mb-12 text-center">
+    Contact Me
+  </h2>
 
-      {/* Contact */}
-      <section
-        id="contact"
-        className="relative z-10 py-24 px-6"
+  <form
+    onSubmit={handleSubmit}
+    className="
+      bg-white/5
+      border
+      border-cyan-500/20
+      rounded-3xl
+      p-10
+      backdrop-blur-md
+      flex
+      flex-col
+      gap-6
+    "
+  >
+
+    {/* Name */}
+    <input
+      type="text"
+      placeholder="Your Name"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      className="
+        bg-black/40
+        border
+        border-white/10
+        rounded-xl
+        p-4
+        text-white
+        outline-none
+        focus:border-cyan-400
+      "
+      required
+    />
+
+    {/* Email */}
+    <input
+      type="email"
+      placeholder="Your Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="
+        bg-black/40
+        border
+        border-white/10
+        rounded-xl
+        p-4
+        text-white
+        outline-none
+        focus:border-cyan-400
+      "
+      required
+    />
+
+    {/* Message */}
+    <textarea
+      placeholder="Your Message"
+      rows={6}
+      value={message}
+      onChange={(e) => setMessage(e.target.value)}
+      className="
+        bg-black/40
+        border
+        border-white/10
+        rounded-xl
+        p-4
+        text-white
+        outline-none
+        focus:border-cyan-400
+      "
+      required
+    />
+
+    {/* Submit */}
+    <button
+      type="submit"
+      disabled={loading}
+      className="
+        bg-cyan-400
+        hover:bg-cyan-300
+        text-black
+        font-bold
+        py-4
+        rounded-xl
+        transition
+      "
+    >
+      {loading ? "Sending..." : "Send Message"}
+    </button>
+
+    {/* Success */}
+    {success && (
+      <p className="text-green-400 font-medium">
+        Message sent successfully.
+      </p>
+    )}
+
+  </form>
+ {/* Contact Icons */}
+<div className="mt-14 flex justify-center gap-10 flex-wrap">
+
+  {/* WhatsApp */}
+  <button
+    onClick={() => setShowQR("whatsapp")}
+    className="
+      flex
+      flex-col
+      items-center
+      gap-3
+      text-white
+      hover:scale-110
+      transition
+    "
+  >
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+      alt="whatsapp"
+      className="w-12 h-12"
+    />
+
+    <span className="tracking-wide">
+      WhatsApp
+    </span>
+  </button>
+
+  {/* LINE */}
+  <button
+    onClick={() => setShowQR("line")}
+    className="
+      flex
+      flex-col
+      items-center
+      gap-3
+      text-white
+      hover:scale-110
+      transition
+    "
+  >
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/2111/2111498.png"
+      alt="line"
+      className="w-12 h-12"
+    />
+
+    <span className="tracking-wide">
+      LINE
+    </span>
+  </button>
+
+  {/* WeChat */}
+  <button
+    onClick={() => setShowQR("wechat")}
+    className="
+      flex
+      flex-col
+      items-center
+      gap-3
+      text-white
+      hover:scale-110
+      transition
+    "
+  >
+    <img
+      
+  src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/wechat-app-icon.png"
+  alt="wechat"
+      className="w-12 h-12"
+    />
+
+    <span className="tracking-wide">
+      WeChat
+    </span>
+  </button>
+
+</div>
+
+{/* QR Popup */}
+{showQR && (
+  <div
+    className="
+      fixed
+      inset-0
+      bg-black/80
+      backdrop-blur-sm
+      flex
+      items-center
+      justify-center
+      z-50
+    "
+  >
+    <div
+      className="
+        bg-[#0a0f1c]
+        border
+        border-cyan-400/30
+        rounded-3xl
+        p-10
+        text-center
+        relative
+        max-w-sm
+        w-full
+      "
+    >
+
+      {/* Close */}
+      <button
+        onClick={() => setShowQR(null)}
+        className="
+          absolute
+          top-4
+          right-4
+          text-white/60
+          hover:text-white
+        "
       >
-        <div className="max-w-4xl mx-auto text-center">
+        ✕
+      </button>
 
-          <h2 className="text-4xl font-bold mb-10 text-blue-400">
-            Contact Me
-          </h2>
+      {/* WhatsApp */}
+      {showQR === "whatsapp" && (
+        <>
+          <img
+            src="/IMG_8750.JPG"
+            alt="WhatsApp QR"
+            className="rounded-2xl w-full"
+          />
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <p className="mt-6 text-green-300 text-xl font-semibold">
+            WhatsApp ID: +61466556701
+          </p>
+        </>
+      )}
 
-            <a
-              href="mailto:158aaabbbccc@gmail.com"
-              className="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-400 transition"
-            >
-              Email
-            </a>
+      {/* LINE */}
+      {showQR === "line" && (
+        <>
+          <img
+            src="/IMG_8749.JPG"
+            alt="Line QR"
+            className="rounded-2xl w-full"
+          />
 
-            <a
-              href="https://www.linkedin.com/in/yikai-chiang-ab8872208/"
-              target="_blank"
-              className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 transition"
-            >
-              LinkedIn
-            </a>
+          <p className="mt-6 text-green-300 text-xl font-semibold">
+            LINE ID: 0921933338
+          </p>
+        </>
+      )}
 
-            <a
-              href="https://github.com/kayden624"
-              target="_blank"
-              className="px-6 py-3 rounded-2xl bg-gray-800 hover:bg-gray-700 transition"
-            >
-              GitHub
-            </a>
+      {/* WeChat */}
+      {showQR === "wechat" && (
+        <>
+          <img
+            src="/IMG_8751.JPG"
+            alt="WeChat QR"
+            className="rounded-2xl w-full"
+          />
 
-            <a
-              href="https://wa.me/61466556701"
-              target="_blank"
-              className="px-6 py-3 rounded-2xl bg-green-500 hover:bg-green-400 transition"
-            >
-              WhatsApp
-            </a>
+          <p className="mt-6 text-green-300 text-xl font-semibold">
+            WeChat: jiangkai_ee
+          </p>
+        </>
+      )}
 
-          </div>
+    </div>
+  </div>
+)}
 
-          <div className="mt-10 text-gray-400 space-y-3">
-            <p>Email: 158aaabbbccc@gmail.com</p>
-            <p>WeChat ID: jiangkai_ee</p>
-            <p>Line ID: 0921933338</p>
-          </div>
+{/* Footer */}
+<div className="mt-20 border-t border-white/10 pt-8 text-center">
 
-        </div>
-      </section>
+  <p className="text-gray-500 tracking-[0.3em] text-sm">
+    © 2026 YIKAI CHIANG. ALL RIGHTS RESERVED.
+  </p>
+
+</div>
+
+
+</section>
+      
 
     </main>
   );
