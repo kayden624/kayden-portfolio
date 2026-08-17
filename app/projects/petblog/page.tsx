@@ -34,10 +34,27 @@ export default function PetBlogPage() {
           </h1>
 
           <p className="text-xl text-gray-300 leading-8 max-w-3xl mx-auto">
-            A modern pet blogging mobile application developed
-            using React Native and Expo with social media style
-            interaction features.
+            This student project explores a social pet-blogging experience built with React Native and Expo. It helped me practise mobile navigation, reusable components, responsive layouts, authentication flows, image-based content, and deploying an Expo application for the web.
           </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href="https://expo-pet-blog.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl bg-pink-500 px-6 py-3 font-semibold text-white transition hover:bg-pink-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300"
+            >
+              View Live Website
+            </a>
+            <a
+              href="https://github.com/kayden624/Expo-pet-blog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl border border-orange-400/60 px-6 py-3 font-semibold text-orange-200 transition hover:border-orange-300 hover:bg-orange-500/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
+            >
+              View GitHub Repository
+            </a>
+          </div>
 
         </motion.div>
       </section>
@@ -137,7 +154,8 @@ export default function PetBlogPage() {
         <a
           href="https://github.com/kayden624/Expo-pet-blog"
           target="_blank"
-          className="inline-block px-8 py-4 rounded-2xl bg-pink-500 hover:bg-pink-400 text-white font-semibold transition"
+          rel="noopener noreferrer"
+          className="inline-block px-8 py-4 rounded-2xl bg-pink-500 hover:bg-pink-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300 text-white font-semibold transition"
         >
           View GitHub Repository
         </a>

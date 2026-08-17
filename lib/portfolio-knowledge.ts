@@ -6,12 +6,12 @@ Education: Master of Information Technology at Queensland University of Technolo
 Background: dental model technology, advertising design, customer service and hospitality. Languages: English and Chinese.
 Career focus: Full-Stack Developer, Software Developer, and AI Application Engineer.
 Frontend: React, Next.js, TypeScript, JavaScript, Tailwind CSS. Mobile: React Native, Expo. Backend: Node.js, Express, REST APIs, C#, .NET 8. Database: MongoDB, PostgreSQL, SQL. Cloud/tools: AWS EC2, S3, Route 53, ACM, Cognito, Docker, Git, GitHub. AI: Python, LLM/API integration, AI-assisted applications.
-Projects: GravityFit is a React Native and Expo motion-sensor fitness application. Pet Blog is a React Native and Expo mobile social blogging application. TransVideo is a full-stack video transcoding platform using Node.js, FFmpeg, Docker, AWS EC2, JWT, and REST API. C# Gomoku & Notakto is a modular .NET 8 board-game framework with OOP, PvP, and PvC. My SkinNova is an AI personal skincare platform using Next.js, TypeScript, PostgreSQL, Prisma, Supabase Storage, and Clerk.
+Projects: GravityFit is a React Native and Expo motion-sensor fitness application. Pet Blog is a student React Native and Expo mobile social blogging project. Its live website is https://expo-pet-blog.vercel.app and its GitHub repository is https://github.com/kayden624/Expo-pet-blog. TransVideo is a full-stack video transcoding platform using Node.js, FFmpeg, Docker, AWS EC2, JWT, and REST API. C# Gomoku & Notakto is a modular .NET 8 board-game framework with OOP, PvP, and PvC. My SkinNova is an AI personal skincare platform currently in development.
 Public contact methods: LinkedIn https://www.linkedin.com/in/yikai-chiang-ab8872208/ and GitHub https://github.com/kayden624. Prefer guiding visitors to the website's Contact Me section.
 `;
 
 const fallbackAnswers = {
-  projects: "Kayden's projects include GravityFit (React Native/Expo motion-sensor fitness), Pet Blog (React Native/Expo social blogging), TransVideo (Node.js, FFmpeg, Docker and AWS video transcoding), C# Gomoku & Notakto (.NET 8 board-game framework), and My SkinNova (AI skincare platform with Next.js and PostgreSQL).",
+  projects: "Kayden's published portfolio projects include GravityFit, Pet Blog, TransVideo, and C# Gomoku & Notakto. My SkinNova is currently in development and will be added as a full showcase when it is ready.",
   skills: "Kayden works with React, Next.js, TypeScript, JavaScript, Tailwind CSS, React Native, Expo, Node.js, Express, REST APIs, C#, .NET 8, MongoDB, PostgreSQL, SQL, AWS, Docker, Git, GitHub, Python, and LLM/API integration.",
   experience: "Kayden's background includes dental model technology, advertising design, customer service and hospitality, alongside full-stack web development, React Native and Expo mobile development, Docker and AWS deployment projects, and AI application development.",
   education: "Kayden completed a Master of Information Technology at Queensland University of Technology in December 2025. He also has backgrounds in dental model technology and advertising design.",
@@ -21,7 +21,10 @@ const fallbackAnswers = {
 
 export function getFallbackAnswer(message: string) {
   const text = message.toLowerCase();
-  if (/project|portfolio|gravityfit|pet blog|transvideo|skinova|gomoku|notakto/.test(text)) return fallbackAnswers.projects;
+  if (/where can i view my skin ?nova|can i try my skin ?nova|is my skin ?nova live/.test(text)) return "My SkinNova is still in development, so a public demo is not currently listed in this portfolio. Please check back after the project is ready.";
+  if (/skin ?nova|skinnova/.test(text)) return "My SkinNova is an AI personal skincare platform currently in development. More project details and a public demo will be added when it is ready.";
+  if (/can i try the pet blog|where can i view the pet blog|does pet blog have a live demo|pet ?blog|petblog/.test(text)) return "You can try the Pet Blog live website here: https://expo-pet-blog.vercel.app. Its GitHub repository is https://github.com/kayden624/Expo-pet-blog.";
+  if (/project|portfolio|gravityfit|transvideo|gomoku|notakto/.test(text)) return fallbackAnswers.projects;
   if (/skill|stack|technology|tech|react|node|database|cloud|language/.test(text)) return fallbackAnswers.skills;
   if (/experience|background|work|professional/.test(text)) return fallbackAnswers.experience;
   if (/education|degree|qut|master|study/.test(text)) return fallbackAnswers.education;

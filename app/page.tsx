@@ -401,12 +401,23 @@ const [showQR, setShowQR] = useState<
     </span>
   </div>
 
-  <a
-    href="/projects/petblog"
-    className="inline-block mt-6 px-6 py-3 rounded-2xl bg-pink-500 hover:bg-pink-400 text-white font-semibold transition"
-  >
-    View Project
-  </a>
+  <div className="flex gap-4 mt-6 flex-wrap">
+    <a
+      href="/projects/petblog"
+      className="px-6 py-3 rounded-2xl bg-pink-500 hover:bg-pink-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300 text-white font-semibold transition"
+    >
+      View Project
+    </a>
+
+    <a
+      href="https://expo-pet-blog.vercel.app"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="px-6 py-3 rounded-2xl border border-orange-400/60 text-orange-200 hover:border-orange-300 hover:bg-orange-500/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300 font-semibold transition"
+    >
+      Live Demo
+    </a>
+  </div>
 </motion.div>
       
 {/* TransVideo */}
