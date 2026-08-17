@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import PortfolioAssistant from "./components/PortfolioAssistant";
 
 import { motion } from "framer-motion";
 import {
@@ -204,9 +205,11 @@ const [showQR, setShowQR] = useState<
 
             {/* Right */}
             <div className="flex justify-center">
-              <img
+              <Image
                 src="/profile.jpg"
                 alt="Yikai"
+                width={288}
+                height={288}
                 className="w-72 h-72 object-cover rounded-3xl border border-purple-500/30 shadow-2xl"
               />
             </div>
@@ -789,6 +792,7 @@ const [showQR, setShowQR] = useState<
 </section>
       
 
+      <PortfolioAssistant />
     </main>
   );
 }

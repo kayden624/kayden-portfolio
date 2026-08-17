@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function BoardGamePage() {
   return (
@@ -183,12 +184,12 @@ export default function BoardGamePage() {
       {/* Back Home */}
       <section className="text-center pb-20">
 
-        <a
+        <Link
           href="/"
           className="text-cyan-400 hover:text-cyan-300 text-lg tracking-[0.2em]"
         >
           ← BACK TO HOME
-        </a>
+        </Link>
 
       </section>
 
