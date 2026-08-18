@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import PortfolioAssistant from "./components/PortfolioAssistant";
+import KaydenBuildPipeline from "./components/KaydenBuildPipeline";
 import { Reveal, StaggerItem, subtleHover } from "./components/MotionReveal";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -111,7 +112,9 @@ const [showQR, setShowQR] = useState<
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-20 motion-safe:animate-pulse [animation-duration:22s]"></div>
 
       {/* Hero */}
-      <section className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6">
+      <section className="relative z-10 mx-auto grid min-h-screen max-w-7xl items-center gap-12 px-6 py-24 text-center md:grid-cols-2 md:text-left">
+
+        <div>
 
         <motion.h1
           initial={{ opacity: 0, y: -40 }}
@@ -157,6 +160,9 @@ const [showQR, setShowQR] = useState<
           </a>
 
         </motion.div>
+        </div>
+
+        <KaydenBuildPipeline />
       </section>
 
       {/* About */}
