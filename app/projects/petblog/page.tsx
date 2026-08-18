@@ -144,32 +144,14 @@ export default function PetBlogPage() {
         </div>
       </section>
 
-      {/* GitHub */}
-      <section className="max-w-6xl mx-auto px-6 py-24 text-center">
-
-        <h2 className="text-4xl font-bold text-orange-400 mb-10">
-          GitHub Repository
-        </h2>
-
-        <a
-          href="https://github.com/kayden624/Expo-pet-blog"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block px-8 py-4 rounded-2xl bg-pink-500 hover:bg-pink-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300 text-white font-semibold transition"
-        >
-          View GitHub Repository
-        </a>
-
-      </section>
-
       {/* Back */}
       <section className="text-center pb-20">
 
         <Link
-          href="/"
+          href="/#projects"
           className="text-pink-400 hover:text-pink-300 text-lg tracking-[0.2em]"
         >
-          ← BACK TO HOME
+          ← BACK TO PROJECTS
         </Link>
 
       </section>
