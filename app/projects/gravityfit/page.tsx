@@ -1,10 +1,11 @@
 
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 
 export default function GravityFitPage() {
+  const reducedMotion = useReducedMotion();
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
 
@@ -18,9 +19,9 @@ export default function GravityFitPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black"></div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: reducedMotion ? 0 : 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: reducedMotion ? 0 : 0.6, ease: "easeOut" }}
           className="relative z-10 max-w-5xl"
         >
 
@@ -88,8 +89,9 @@ export default function GravityFitPage() {
           ].map((feature) => (
             <motion.div
               key={feature}
-              whileHover={{ scale: 1.03 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition"
+              whileHover={reducedMotion ? {} : { y: -5, scale: 1.01 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cyan-400 hover:shadow-[0_0_18px_rgba(34,211,238,0.22)] transition"
             >
               <p className="text-lg text-gray-200">
                 {feature}

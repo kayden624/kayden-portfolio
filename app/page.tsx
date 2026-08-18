@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import PortfolioAssistant from "./components/PortfolioAssistant";
+import { Reveal, StaggerItem, subtleHover } from "./components/MotionReveal";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   FaReact,
   FaDocker,
@@ -23,6 +24,15 @@ import {
 } from "react-icons/si";
 
 export default function Home() {
+  const reducedMotion = useReducedMotion();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
 const [showQR, setShowQR] = useState<
   "whatsapp" | "line" | "wechat" | null
@@ -69,27 +79,27 @@ const [showQR, setShowQR] = useState<
     <main className="min-h-screen bg-black text-white overflow-hidden">
 
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/30 border-b border-white/10">
+      <nav className={`fixed top-0 w-full z-50 backdrop-blur-md border-b transition-colors duration-200 ${scrolled ? "bg-black/80 border-white/20" : "bg-black/30 border-white/10"}`}>
         <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
 
           <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
             KAYDEN
           </h1>
 
-          <div className="flex gap-6 text-gray-300">
-            <a href="#about" className="hover:text-purple-400 transition">
+          <div className="flex flex-wrap justify-end gap-x-4 gap-y-1 text-gray-300 sm:gap-6">
+            <a href="#about" className="transition hover:text-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-300">
               About
             </a>
 
-            <a href="#skills" className="hover:text-purple-400 transition">
+            <a href="#skills" className="transition hover:text-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-300">
               Skills
             </a>
 
-            <a href="#projects" className="hover:text-purple-400 transition">
+            <a href="#projects" className="transition hover:text-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-300">
               Projects
             </a>
 
-            <a href="#contact" className="hover:text-purple-400 transition">
+            <a href="#contact" className="transition hover:text-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-300">
               Contact
             </a>
           </div>
@@ -97,8 +107,8 @@ const [showQR, setShowQR] = useState<
       </nav>
 
       {/* Background Glow */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500 rounded-full blur-3xl opacity-20"></div>
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500 rounded-full blur-3xl opacity-20 motion-safe:animate-pulse [animation-duration:18s]"></div>
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-20 motion-safe:animate-pulse [animation-duration:22s]"></div>
 
       {/* Hero */}
       <section className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6">
@@ -106,7 +116,7 @@ const [showQR, setShowQR] = useState<
         <motion.h1
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: reducedMotion ? 0 : 0.45, ease: "easeOut" }}
           className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text"
         >
           Yikai Chiang
@@ -115,33 +125,33 @@ const [showQR, setShowQR] = useState<
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: reducedMotion ? 0 : 0.18, duration: reducedMotion ? 0 : 0.45 }}
           className="mt-6 text-xl md:text-2xl text-gray-300"
         >
           Full-Stack Developer building web, mobile, and AI-powered products.
         </motion.p>
 
-        <p className="mt-3 text-sm text-gray-400 md:text-base">
+        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reducedMotion ? 0 : 0.3, duration: reducedMotion ? 0 : 0.45 }} className="mt-3 text-sm text-gray-400 md:text-base">
           React • Next.js • TypeScript • Node.js • AWS
-        </p>
+        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: reducedMotion ? 0 : 0.42, duration: reducedMotion ? 0 : 0.45 }}
           className="mt-10 flex gap-4"
         >
 
           <a
             href="#projects"
-            className="px-6 py-3 rounded-2xl bg-purple-600 hover:bg-purple-500 transition"
+            className="px-6 py-3 rounded-2xl bg-purple-600 hover:bg-purple-500 transition duration-200 hover:-translate-y-0.5 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-300"
           >
             View Projects
           </a>
 
           <a
             href="#contact"
-            className="px-6 py-3 rounded-2xl border border-gray-500 hover:border-purple-400 transition"
+            className="px-6 py-3 rounded-2xl border border-gray-500 hover:border-purple-400 transition duration-200 hover:-translate-y-0.5 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-300"
           >
             Contact Me
           </a>
@@ -157,7 +167,8 @@ const [showQR, setShowQR] = useState<
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: reducedMotion ? 0 : 0.55, ease: "easeOut" }}
         >
 
           <h2 className="text-4xl font-bold mb-12 text-purple-400">
@@ -235,10 +246,15 @@ const [showQR, setShowQR] = useState<
 
      
 {/* Skills */}
-<section
+<motion.section
   id="skills"
   className="relative z-10 max-w-6xl mx-auto px-6 py-24"
+  initial={false}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.15 }}
+  transition={{ duration: reducedMotion ? 0 : 0.55, ease: "easeOut" }}
 >
+  <Reveal>
   <h2 className="text-4xl font-bold mb-12 text-blue-400">
     Skills
   </h2>
@@ -261,10 +277,12 @@ const [showQR, setShowQR] = useState<
   { name: "Docker", description: "Containerizing applications and services.", icon: <FaDocker size={42} /> },
   { name: "AWS", description: "Deploying cloud-based applications and APIs.", icon: <FaAws size={42} /> },
   { name: "Git / GitHub", description: "Version control and collaborative development.", icon: <SiGithub size={42} /> },
-].map((skill) => (
+].map((skill, index) => (
+  <StaggerItem key={skill.name} index={index}>
   <motion.div
-    whileHover={{ y: -8 }}
-    key={skill.name}
+    whileHover={reducedMotion ? {} : subtleHover.whileHover}
+    whileTap={reducedMotion ? {} : subtleHover.whileTap}
+    transition={subtleHover.transition}
     className="
       bg-white/5
       border
@@ -295,19 +313,26 @@ const [showQR, setShowQR] = useState<
       {skill.description}
     </p>
   </motion.div>
+  </StaggerItem>
 ))}
 
 
   </div>
-</section>
+  </Reveal>
+ </motion.section>
 
 
 
       {/* Projects */}
-      <section
+      <motion.section
         id="projects"
         className="relative z-10 max-w-6xl mx-auto px-6 py-24"
+        initial={false}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: reducedMotion ? 0 : 0.55, ease: "easeOut" }}
       >
+        <Reveal>
         <h2 className="text-4xl font-bold mb-4 text-purple-400">
           Featured Projects
         </h2>
@@ -464,13 +489,19 @@ const [showQR, setShowQR] = useState<
           </motion.div>
 
         </div>
-      </section>
+        </Reveal>
+      </motion.section>
       
 {/* Contact */}
-<section
+<motion.section
   id="contact"
   className="relative z-10 max-w-5xl mx-auto px-6 py-24"
+  initial={false}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.15 }}
+  transition={{ duration: reducedMotion ? 0 : 0.55, ease: "easeOut" }}
 >
+  <Reveal>
   <h2 className="text-5xl font-bold text-cyan-400 mb-12 text-center">
     Contact Me
   </h2>
@@ -791,7 +822,8 @@ const [showQR, setShowQR] = useState<
 </div>
 
 
-</section>
+  </Reveal>
+ </motion.section>
       
 
       <PortfolioAssistant />
